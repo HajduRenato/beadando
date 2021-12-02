@@ -1,10 +1,13 @@
-from flask import Flask
-
 from flask import Blueprint
+from flask import Flask
+import mysql
 
 app = Blueprint('app', __name__)
 
 app = Flask(__name__)
+
+connectiondb = mysql.connector.connect(host="localhost", user="root", passwd="", database="logindb")
+cursordb = connectiondb.cursor()
 
 
 @app.route('/')
@@ -35,5 +38,3 @@ def welcome():
                 print("Welcome")
                 break
             print("Incorrect username or password.")
-
-
