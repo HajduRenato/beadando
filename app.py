@@ -1,8 +1,7 @@
 import os
 import sqlite3
-import split
 
-db_name = 'MY.sql'
+db_name = 'MY.db'
 db_exists = not os.path.exists(db_name)
 
 connection = sqlite3.connect(db_name)
@@ -17,12 +16,6 @@ if db_exists:
                 password TEXT
             );
         """)
-        sql = "INSERT INTO MY (name, password) VALUES(?, ?)"
-        data = [
-            ('Alice', 'a1'),
-            ('Bob', 'b2'),
-            ('Chris', 'c3')
-        ]
         print('DB created.')
 else:
     print('DB exists.')
@@ -38,6 +31,7 @@ if udv == "n" or udv == "N":
             var = cursor.execute(sql, (username, password))
             udv = "y"
             asd = cursor.execute("SELECT name, password FROM MY WHERE  name = ? and password = ?", (username, password))
+            connection.commit()
             row = cursor.fetchone()
             print('Given datas:\nUsername:  ' + row[0] + ' \nPassword: ', row[1])
             break
@@ -58,9 +52,8 @@ if udv == "y" or udv == "Y":
         decision = input("What would you like to do?\nA|Write out users\nB|Use calculator\n")
         if decision == 'A' or decision == 'a':
             cursor.execute("SELECT name FROM MY")
-            row = str(cursor.fetchone())
-            for x in row:
-                print(x)
+            row = str(cursor.fetchall())
+            print(row)
 
         break
 
