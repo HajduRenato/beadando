@@ -1,16 +1,11 @@
 from flask import Blueprint
 from flask import Flask
-import mysql
 
 app = Blueprint('app', __name__)
 
 app = Flask(__name__)
 
-connectiondb = mysql.connector.connect(host="localhost", user="root", passwd="", database="logindb")
-cursordb = connectiondb.cursor()
 
-
-@app.route('/')
 def welcome():
     print("Welcome...")
     udv = input("Do you have an acount? y/n: ")
@@ -32,9 +27,9 @@ def welcome():
             login1 = input("Login:")
             login2 = input("Password:")
             file = open(login1 + ".txt", "r")
-            data = file.readline()
+            adat = file.readline()
             file.close()
-            if data == login1 + ":" + login2:
+            if adat == login1 + ":" + login2:
                 print("Welcome")
                 break
             print("Incorrect username or password.")
